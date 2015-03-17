@@ -43,6 +43,8 @@ class SearchViewController: UIViewController {
     
     self.tableView.rowHeight = 80
     
+    self.searchBar.becomeFirstResponder()
+    
     
     // Do any additional setup after loading the view, typically from a nib.
   }

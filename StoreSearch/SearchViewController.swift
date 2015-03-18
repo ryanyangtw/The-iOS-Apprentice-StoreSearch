@@ -53,6 +53,238 @@ class SearchViewController: UIViewController {
     super.didReceiveMemoryWarning()
     // Dispose of any resources that can be recreated.
   }
+  
+
+//MARK: Networking
+  func urlWithSearchText(searchText: String) -> NSURL {
+    
+    // Do the URL encoding
+    let escapedSearchText = searchText.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!
+    
+    let urlString = String(format: "http://itunes.apple.com/search?term=%@", escapedSearchText)
+    
+    // Tuen this string into NSURL object
+    let url = NSURL(string: urlString)
+    return url!
+    
+  }
+  
+  func performStoreRequestWithURL(url: NSURL) -> String? {
+  
+    var error: NSError?
+    
+    // A constructor of the String class that returns a new string object with the data that if receives from the server at the other end of the URL
+    if let resultString = String(contentsOfURL: url, encoding: NSUTF8StringEncoding, error: &error) {
+    
+      return resultString
+      
+      // check if errror is nil or not
+    } else if let error = error {
+      println("Download Error: \(error)")
+    } else {
+      println("Unknown Download Error")
+    }
+    
+    return nil
+  
+  }
+  
+  
+  func parseJSON(jsonString: String) -> [String: AnyObject]? {
+    
+    // Convert string into an NSData object
+    if let data = jsonString.dataUsingEncoding(NSUTF8StringEncoding) {
+      
+      // Convert NSData object into a Dictionary
+      var error: NSError?
+      if let json = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(0), error: &error) as? [String: AnyObject] {
+        return json
+      } else if let error = error{
+        println("JSON Error: \(error)")
+      } else {
+        println("Unknow JSON Error")
+      }
+    }
+    
+    return nil
+  }
+  
+  
+  func parseDictionary(dictionary: [String: AnyObject]) -> [SearchResult] {
+    
+    
+    var searchResults = [SearchResult]()
+    
+    // 1 make sure the dictionary has a key named results that contains an array
+    if let array: AnyObject = dictionary["results"] {
+      // 2
+      for resultDict in array as [AnyObject] {
+        
+        // 3 make sure these objects really do represnet a dictionary.
+        if let resultDict = resultDict as? [String: AnyObject] {
+          
+          var searchResult: SearchResult?
+          // 4
+          if let wrapperType = resultDict["wrapperType"] as? NSString {
+            
+            switch wrapperType {
+              case "track":
+                searchResult = parseTrack(resultDict)
+              case "audiobook":
+                searchResult = parseAudioBook(resultDict)
+              case "software":
+                searchResult = parseSoftware(resultDict)
+              default:
+                break
+            }
+            
+            /*
+            if let kind = resultDict["kind"] as? NSString {
+              println("wrapperType: \(wrapperType), kind: \(kind)")
+            }
+            */
+          } else if let kind = resultDict["kind"] as? NSString {
+            if kind == "ebook" {
+              searchResult = parseEBook(resultDict)
+            }
+          }
+          
+          if let result = searchResult {
+            searchResults.append(result)
+          }
+          
+        // 5
+        } else {
+          println("Expected a dictionary")
+        }
+      }
+    } else {
+    
+      println("Expected 'results' array")
+    }
+    
+    return searchResults
+  }
+  
+//MARK: Parse Different categories
+  func parseTrack(dictionary: [String: AnyObject]) -> SearchResult {
+    let searchResult = SearchResult()
+    
+    searchResult.name = dictionary["trackName"] as NSString
+    searchResult.artistName = dictionary["artistName"] as NSString
+    searchResult.artworkUrl60 = dictionary["artworkUrl60"] as NSString
+    searchResult.artworkUrl100 = dictionary["artworkUrl100"] as NSString
+    searchResult.storeUrl = dictionary["trackViewUrl"] as NSString
+    searchResult.kind = dictionary["kind"] as NSString
+    searchResult.currency = dictionary["currency"] as NSString
+    
+    if let price = dictionary["trackPrice"] as? NSNumber {
+      searchResult.price = Double(price)
+    }
+    if let genre = dictionary["primaryGenreName"] as? NSString {
+      searchResult.genre = genre
+    }
+    
+    return searchResult
+  }
+  
+  
+  func parseAudioBook(dictionary: [String: AnyObject]) -> SearchResult {
+    let searchResult = SearchResult()
+    searchResult.name = dictionary["collectionName"] as NSString
+    searchResult.artistName = dictionary["artistName"] as NSString
+    searchResult.artworkUrl60 = dictionary["artworkUrl60"] as NSString
+    searchResult.artworkUrl100 = dictionary["artworkUrl100"] as NSString
+    searchResult.storeUrl = dictionary["collectionViewUrl"] as NSString
+    searchResult.kind = "audiobook"
+    searchResult.currency = dictionary["currency"] as NSString
+    
+    if let price = dictionary["collectionPrice"] as? NSNumber {
+      searchResult.price = Double(price)
+    }
+    if let genre = dictionary["primaryGenreName"] as? NSString {
+      searchResult.genre = genre
+    }
+    
+    return searchResult
+  }
+  
+  // ??
+  func parseSoftware(dictionary: [String: AnyObject]) -> SearchResult {
+    let searchResult = SearchResult()
+    searchResult.name = dictionary["trackName"] as NSString
+    searchResult.artistName = dictionary["artistName"] as NSString
+    searchResult.artworkUrl60 = dictionary["artworkUrl60"] as NSString
+    searchResult.artworkUrl100 = dictionary["artworkUrl100"] as NSString
+    searchResult.storeUrl = dictionary["trackViewUrl"] as NSString
+    searchResult.kind = dictionary["kind"] as NSString
+    searchResult.currency = dictionary["currency"] as NSString
+    
+    if let price = dictionary["price"] as? NSNumber {
+      searchResult.price = Double(price)
+    }
+    if let genre = dictionary["primaryGenreName"] as? NSString {
+      searchResult.genre = genre
+    }
+    
+    return searchResult
+    
+  }
+  
+  func parseEBook(dictionary: [String: AnyObject]) -> SearchResult {
+    
+    let searchResult = SearchResult()
+    searchResult.name = dictionary["trackName"] as NSString
+    searchResult.artistName = dictionary["artistName"] as NSString
+    searchResult.artworkUrl60 = dictionary["artworkUrl60"] as NSString
+    searchResult.artworkUrl100 = dictionary["artworkUrl100"] as NSString
+    searchResult.storeUrl = dictionary["trackViewUrl"] as NSString
+    searchResult.kind = dictionary["kind"] as NSString
+    searchResult.currency = dictionary["currency"] as NSString
+    
+    if let price = dictionary["price"] as? NSNumber {
+      searchResult.price = Double(price)
+    }
+ 
+    if let genres: AnyObject = dictionary["genres"] {
+      searchResult.genre = ", ".join(genres as [String])
+    }
+    
+    return searchResult
+  }
+  
+  
+  
+  func kindForDisplay(kind: String) -> String {
+    switch kind {
+      case "album": return "Albun"
+      case "audiobook": return "Audio Book"
+      case "book": return "Book"
+      case "ebook": return "E-Book"
+      case "feature-movie": return "Movie"
+      case "music-video": return "Music Video"
+      case "podcaast": return "Podcast"
+      case "software": return "App"
+      case "song": return "Song"
+      case "tv-episode": return "TV Episode"
+      default: return kind
+    }
+  }
+  
+  
+  // presents an alert controller with an error message
+  func showNetworkError() {
+    let alert = UIAlertController(
+      title: "WHoops....",
+      message: "There was an error reading from the iTunes Store. Please try again.",
+      preferredStyle: .Alert)
+    
+    let action = UIAlertAction(title: "OK", style: .Default, handler: nil)
+    
+    alert.addAction(action)
+    
+    presentViewController(alert, animated: true, completion: nil)
+  }
 
 
 }
@@ -65,32 +297,52 @@ extension SearchViewController: UISearchBarDelegate {
   // It will be invoded when the user taps the Search button on the keyboard
   func searchBarSearchButtonClicked(searchBar: UISearchBar) {
     
-    // It tells the UISearchBar taht it should no longer listen to keyboard input.
-    searchBar.resignFirstResponder()
-    
-    
-    
-    searchResults = [SearchResult]()
-    
-    if searchBar.text != "justin bieber" {
-      for i in 0...2 {
-        let searchResult = SearchResult()
-        searchResult.name = String(format: "Fake Result %d for", i)
-        searchResult.artistName = searchBar.text
-        searchResults.append(searchResult)
+    if !searchBar.text.isEmpty {
+
+      // It tells the UISearchBar taht it should no longer listen to keyboard input.
+      searchBar.resignFirstResponder()
+      
+      hasSearched = true
+      searchResults = [SearchResult]()
+      
+      
+      let url = urlWithSearchText(searchBar.text)
+      println("URL: '\(url)'")
+      
+      if let jsonString = performStoreRequestWithURL(url) {
+        //println("Received JSON string '\(jsonString)'")
         
-        // searchResults.append( String(format: "Fake Result %d for '%@'", i , searchBar.text) )
+        if let dictionary = parseJSON(jsonString) {
+          println("Dictionary \(dictionary)")
+          
+          
+          searchResults = parseDictionary(dictionary)
+          
+          /*
+          searchResults.sort({ result1, result2 in
+            return result1.name.localizedStandardCompare(result2.name) == NSComparisonResult.OrderedAscending
+          })
+          
+          searchResuls.sort {$0.name.localizedStandardCompare($1.name) == NSComparisonResult.OrderedAscending}
+          
+          searchResuls.sort(<)
+          */
+          
+          searchResults.sort{ $0 < $1 }
+          
+          
+          // reload the table view to make the new rows visible
+          // It will trigger the data source methods to read from array as well
+          tableView.reloadData()
+          return
+        }
       }
+      
+
+      showNetworkError()
+      
     }
     
-    
-    self.hasSearched = true
-    
-    // reload the table view to make the new rows visible
-    // It will trigger the data source methods to read from array as well
-    self.tableView.reloadData()
-    
-    //println("The search text is: '\(searchBar.text)'")
   }
   
   
@@ -143,7 +395,13 @@ extension SearchViewController: UITableViewDataSource {
       
       let searchResult = searchResults[indexPath.row]
       cell.nameLabel.text = searchResult.name
-      cell.artistNameLabel.text = searchResult.artistName
+      
+      if searchResult.artistName.isEmpty {
+        cell.artistNameLabel.text = "Unknow"
+      } else {
+        cell.artistNameLabel.text = String(format: "%@ (%@)", searchResult.artistName, kindForDisplay(searchResult.kind))
+      }
+
       //cell.textLabel!.text = searchResult.name
       //cell.detailTextLabel!.text = searchResult.artistName
       return cell

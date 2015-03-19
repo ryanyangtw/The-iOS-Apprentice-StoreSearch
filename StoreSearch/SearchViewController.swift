@@ -26,6 +26,8 @@ class SearchViewController: UIViewController {
   var hasSearched = false
   var isLoading = false
   
+  var dataTask: NSURLSessionDataTask?
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     
@@ -308,6 +310,7 @@ extension SearchViewController: UISearchBarDelegate {
 
       // It tells the UISearchBar taht it should no longer listen to keyboard input.
       searchBar.resignFirstResponder()
+      self.dataTask?.cancel()
       
       self.isLoading = true
       self.tableView.reloadData()
@@ -324,13 +327,16 @@ extension SearchViewController: UISearchBarDelegate {
       let session = NSURLSession.sharedSession()
 
       // 3 data task are for sendeing HTTP GET requests to the server
-      let dataTack = session.dataTaskWithURL(url, completionHandler: {
+      self.dataTask = session.dataTaskWithURL(url, completionHandler: {
         data, response, error in
         
         //println("On the main thread? " + (NSThread.currentThread().isMainThread ? "Yes" : "No"))
         // 4
         if let error = error {
           println("Failure! \(error)")
+          
+          // Ignore the error which was triggered by cancelling the task
+          if error.code == -999 { return }
           
         } else if let httpResponse = response as? NSHTTPURLResponse {
           if httpResponse.statusCode == 200 {
@@ -361,7 +367,7 @@ extension SearchViewController: UISearchBarDelegate {
       })
       
       // 5 start the task
-      dataTack.resume()
+      self.dataTask?.resume()
       
       /*
       // 1 Gets a reference to the queue

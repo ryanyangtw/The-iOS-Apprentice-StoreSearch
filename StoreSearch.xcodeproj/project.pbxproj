@@ -17,6 +17,7 @@
 		94A601591AB6EB7700B0072C /* SearchResultCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94A601581AB6EB7700B0072C /* SearchResultCell.xib */; };
 		94A6015B1AB7297000B0072C /* SearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94A6015A1AB7297000B0072C /* SearchResultCell.swift */; };
 		94A6015D1AB7C72600B0072C /* NothingFoundCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94A6015C1AB7C72600B0072C /* NothingFoundCell.xib */; };
+		94F7ABFD1AB9D1C400BFF617 /* LoadingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94F7ABFC1AB9D1C400BFF617 /* LoadingCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +45,7 @@
 		94A601581AB6EB7700B0072C /* SearchResultCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchResultCell.xib; sourceTree = "<group>"; };
 		94A6015A1AB7297000B0072C /* SearchResultCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultCell.swift; sourceTree = "<group>"; };
 		94A6015C1AB7C72600B0072C /* NothingFoundCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NothingFoundCell.xib; sourceTree = "<group>"; };
+		94F7ABFC1AB9D1C400BFF617 /* LoadingCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoadingCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +97,7 @@
 				94A601581AB6EB7700B0072C /* SearchResultCell.xib */,
 				94A6015A1AB7297000B0072C /* SearchResultCell.swift */,
 				94A6015C1AB7C72600B0072C /* NothingFoundCell.xib */,
+				94F7ABFC1AB9D1C400BFF617 /* LoadingCell.xib */,
 			);
 			path = StoreSearch;
 			sourceTree = "<group>";
@@ -204,6 +207,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				94F7ABFD1AB9D1C400BFF617 /* LoadingCell.xib in Resources */,
 				94761D201AB6828E009A7D32 /* Main.storyboard in Resources */,
 				94761D251AB6828E009A7D32 /* LaunchScreen.xib in Resources */,
 				94A601591AB6EB7700B0072C /* SearchResultCell.xib in Resources */,

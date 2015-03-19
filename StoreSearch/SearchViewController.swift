@@ -75,6 +75,7 @@ class SearchViewController: UIViewController {
     
   }
   
+  /*
   func performStoreRequestWithURL(url: NSURL) -> String? {
   
     var error: NSError?
@@ -94,23 +95,23 @@ class SearchViewController: UIViewController {
     return nil
   
   }
+  */
   
-  
-  func parseJSON(jsonString: String) -> [String: AnyObject]? {
+  func parseJSON(data: NSData) -> [String: AnyObject]? {
     
     // Convert string into an NSData object
-    if let data = jsonString.dataUsingEncoding(NSUTF8StringEncoding) {
+    //if let data = jsonString.dataUsingEncoding(NSUTF8StringEncoding) {
       
-      // Convert NSData object into a Dictionary
-      var error: NSError?
-      if let json = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(0), error: &error) as? [String: AnyObject] {
-        return json
-      } else if let error = error{
-        println("JSON Error: \(error)")
-      } else {
-        println("Unknow JSON Error")
-      }
+    // Convert NSData object into a Dictionary
+    var error: NSError?
+    if let json = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(0), error: &error) as? [String: AnyObject] {
+      return json
+    } else if let error = error{
+      println("JSON Error: \(error)")
+    } else {
+      println("Unknow JSON Error")
     }
+    //}
     
     return nil
   }
@@ -311,12 +312,58 @@ extension SearchViewController: UISearchBarDelegate {
       self.isLoading = true
       self.tableView.reloadData()
       
-      
-      
       // Here is the networking code
       self.hasSearched = true
       self.searchResults = [SearchResult]()
       
+      
+      // 1 Create the NSURL object with the search text
+      let url = self.urlWithSearchText(searchBar.text)
+      
+      // 2 grabs the "shared" session, which always exists and use a default configuration with respect to caching, cookies, and other web stuff
+      let session = NSURLSession.sharedSession()
+
+      // 3 data task are for sendeing HTTP GET requests to the server
+      let dataTack = session.dataTaskWithURL(url, completionHandler: {
+        data, response, error in
+        
+        //println("On the main thread? " + (NSThread.currentThread().isMainThread ? "Yes" : "No"))
+        // 4
+        if let error = error {
+          println("Failure! \(error)")
+          
+        } else if let httpResponse = response as? NSHTTPURLResponse {
+          if httpResponse.statusCode == 200 {
+            //println("Success! \(data)")
+            if let dictionary = self.parseJSON(data) {
+              self.searchResults = self.parseDictionary(dictionary)
+              self.searchResults.sort{ $0 < $1 }
+              
+              dispatch_async(dispatch_get_main_queue()) {
+                self.isLoading = false
+                self.tableView.reloadData()
+              }
+              
+              return
+            }
+          }  else {
+            println("Failure! \(response)")
+          }
+        }
+        
+        dispatch_async(dispatch_get_main_queue()) {
+          self.hasSearched = false
+          self.isLoading = false
+          self.tableView.reloadData()
+          self.showNetworkError()
+        }
+      
+      })
+      
+      // 5 start the task
+      dataTack.resume()
+      
+      /*
       // 1 Gets a reference to the queue
       let queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
       
@@ -344,7 +391,7 @@ extension SearchViewController: UISearchBarDelegate {
           self.showNetworkError()
         }
       }
-      
+      */
       /*
       let url = urlWithSearchText(searchBar.text)
       println("URL: '\(url)'")

@@ -274,23 +274,6 @@ class SearchViewController: UIViewController {
   
   
   
-  func kindForDisplay(kind: String) -> String {
-    switch kind {
-      case "album": return "Albun"
-      case "audiobook": return "Audio Book"
-      case "book": return "Book"
-      case "ebook": return "E-Book"
-      case "feature-movie": return "Movie"
-      case "music-video": return "Music Video"
-      case "podcaast": return "Podcast"
-      case "software": return "App"
-      case "song": return "Song"
-      case "tv-episode": return "TV Episode"
-      default: return kind
-    }
-  }
-  
-  
   // presents an alert controller with an error message
   func showNetworkError() {
     let alert = UIAlertController(
@@ -516,6 +499,9 @@ extension SearchViewController: UITableViewDataSource {
       let cell = tableView.dequeueReusableCellWithIdentifier(TableViewCellIdentifiers.searchResultCell, forIndexPath: indexPath) as SearchResultCell
       
       let searchResult = searchResults[indexPath.row]
+      cell.configureForSearchResult(searchResult)
+      
+      /*
       cell.nameLabel.text = searchResult.name
       
       if searchResult.artistName.isEmpty {
@@ -523,6 +509,7 @@ extension SearchViewController: UITableViewDataSource {
       } else {
         cell.artistNameLabel.text = String(format: "%@ (%@)", searchResult.artistName, kindForDisplay(searchResult.kind))
       }
+      */
 
       //cell.textLabel!.text = searchResult.name
       //cell.detailTextLabel!.text = searchResult.artistName

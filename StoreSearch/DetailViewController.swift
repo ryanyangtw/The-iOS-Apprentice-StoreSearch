@@ -46,6 +46,8 @@ class DetailViewController: UIViewController {
     }
     
     
+    view.backgroundColor = UIColor.clearColor()
+    
     //self.priceButton.setTitle("TEST", forState: .Normal)
 
     // Do any additional setup after loading the view.

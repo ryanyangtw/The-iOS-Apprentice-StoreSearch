@@ -16,11 +16,15 @@ class GradientView: UIView {
     
     // coearColor() means transparent
     backgroundColor =  UIColor.clearColor()
+    
+    // tells the view that it should change both its width and height proportionally when the superview it belongs to resizes
+    autoresizingMask = .FlexibleWidth | .FlexibleHeight
   }
   
   required init (coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
     backgroundColor = UIColor.clearColor()
+    autoresizingMask = .FlexibleWidth | .FlexibleHeight
   }
   
   override func drawRect(rect: CGRect) {

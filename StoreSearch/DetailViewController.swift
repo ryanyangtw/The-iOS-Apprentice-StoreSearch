@@ -23,6 +23,13 @@ class DetailViewController: UIViewController {
   
   var downloadTask: NSURLSessionDownloadTask?
   
+  enum AnimationStyle {
+    case Slide
+    case Fade
+  }
+  
+  var dismissAnimationStyle = AnimationStyle.Fade
+  
   
   deinit {
     //println("deinit \(self)")
@@ -108,6 +115,7 @@ class DetailViewController: UIViewController {
 // MARK: IBAction
   @IBAction func close() {
     // This mehod will dealloc the detailViewController
+    dismissAnimationStyle = .Slide
     dismissViewControllerAnimated(true, completion: nil)
   }
   
@@ -136,7 +144,15 @@ extension DetailViewController: UIViewControllerTransitioningDelegate {
   }
   
   func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-    return SlideOutAnimationController()
+    
+    switch dismissAnimationStyle {
+    case .Slide:
+      return SlideOutAnimationController()
+    case .Fade:
+      return FadeOutAnimationController()
+      
+    }
+    
   }
   
 }

@@ -89,6 +89,90 @@
             </objects>
             <point key="canvasLocation" x="267" y="243.5"/>
         </scene>
+        <!--Landscape View Controller-->
+        <scene sceneID="6UC-b4-IhN">
+            <objects>
+                <viewController storyboardIdentifier="LandscapeViewController" id="PII-Nc-drW" customClass="LandscapeViewController" customModule="StoreSearch" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Xes-2q-Kmr"/>
+                        <viewControllerLayoutGuide type="bottom" id="bMi-jS-9oJ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="j7Z-h4-AC9">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="We're in landscape" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CIF-Ji-daS">
+                                <rect key="frame" x="227" y="290" width="146" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="CIF-Ji-daS" firstAttribute="top" secondItem="Xes-2q-Kmr" secondAttribute="bottom" constant="69" id="1ez-cE-e6g"/>
+                            <constraint firstItem="CIF-Ji-daS" firstAttribute="leading" secondItem="j7Z-h4-AC9" secondAttribute="leadingMargin" constant="24" id="1p4-w7-HI1"/>
+                            <constraint firstItem="CIF-Ji-daS" firstAttribute="top" secondItem="Xes-2q-Kmr" secondAttribute="bottom" constant="69" id="8We-9W-ccG"/>
+                            <constraint firstAttribute="centerX" secondItem="CIF-Ji-daS" secondAttribute="centerX" constant="-65" id="9io-Ug-7yP"/>
+                            <constraint firstItem="CIF-Ji-daS" firstAttribute="top" secondItem="Xes-2q-Kmr" secondAttribute="bottom" constant="69" id="EJM-Nc-EWh"/>
+                            <constraint firstAttribute="centerY" secondItem="CIF-Ji-daS" secondAttribute="centerY" id="ELv-f0-Odp"/>
+                            <constraint firstAttribute="centerY" secondItem="CIF-Ji-daS" secondAttribute="centerY" id="FFB-VB-0Xo"/>
+                            <constraint firstAttribute="centerX" secondItem="CIF-Ji-daS" secondAttribute="centerX" constant="-117" id="JnO-6p-22w"/>
+                            <constraint firstItem="CIF-Ji-daS" firstAttribute="leading" secondItem="j7Z-h4-AC9" secondAttribute="leadingMargin" constant="24" id="KSZ-ne-jkt"/>
+                            <constraint firstItem="CIF-Ji-daS" firstAttribute="leading" secondItem="j7Z-h4-AC9" secondAttribute="leading" constant="40" id="L6M-m5-jfu"/>
+                            <constraint firstAttribute="centerX" secondItem="CIF-Ji-daS" secondAttribute="centerX" id="Lmk-0c-PUz"/>
+                            <constraint firstAttribute="centerY" secondItem="CIF-Ji-daS" secondAttribute="centerY" constant="223.5" id="OXa-kd-lcb"/>
+                            <constraint firstItem="CIF-Ji-daS" firstAttribute="leading" secondItem="j7Z-h4-AC9" secondAttribute="leadingMargin" constant="328" id="UE0-OB-O9c"/>
+                            <constraint firstItem="CIF-Ji-daS" firstAttribute="leading" secondItem="j7Z-h4-AC9" secondAttribute="leadingMargin" constant="24" id="WaK-vG-TT1"/>
+                            <constraint firstItem="CIF-Ji-daS" firstAttribute="top" secondItem="Xes-2q-Kmr" secondAttribute="bottom" constant="69" id="Yha-dk-k72"/>
+                            <constraint firstAttribute="centerX" secondItem="CIF-Ji-daS" secondAttribute="centerX" constant="100" id="aqU-jF-yC8"/>
+                            <constraint firstAttribute="centerX" secondItem="CIF-Ji-daS" secondAttribute="centerX" id="cix-P6-1kM"/>
+                            <constraint firstAttribute="centerY" secondItem="CIF-Ji-daS" secondAttribute="centerY" constant="0.5" id="fAF-VQ-Umd"/>
+                            <constraint firstAttribute="centerX" secondItem="CIF-Ji-daS" secondAttribute="centerX" constant="-52" id="fLm-BV-JCH"/>
+                            <constraint firstAttribute="centerX" secondItem="CIF-Ji-daS" secondAttribute="centerX" constant="187" id="gD6-3S-ZTX"/>
+                            <constraint firstItem="CIF-Ji-daS" firstAttribute="top" secondItem="Xes-2q-Kmr" secondAttribute="bottom" constant="69" id="gOE-Gz-agn"/>
+                            <constraint firstItem="CIF-Ji-daS" firstAttribute="leading" secondItem="j7Z-h4-AC9" secondAttribute="leading" constant="24" id="mm4-qG-lrx"/>
+                            <constraint firstAttribute="centerY" secondItem="CIF-Ji-daS" secondAttribute="centerY" id="pNP-YG-RNZ"/>
+                            <constraint firstItem="CIF-Ji-daS" firstAttribute="top" secondItem="Xes-2q-Kmr" secondAttribute="bottom" constant="69" id="pud-uy-X3Z"/>
+                            <constraint firstAttribute="centerX" secondItem="CIF-Ji-daS" secondAttribute="centerX" id="qRB-Ab-saq"/>
+                            <constraint firstAttribute="centerY" secondItem="CIF-Ji-daS" secondAttribute="centerY" id="vDU-SW-HaH"/>
+                            <constraint firstItem="CIF-Ji-daS" firstAttribute="leading" secondItem="j7Z-h4-AC9" secondAttribute="leadingMargin" constant="24" id="vOk-AX-7Rl"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="1ez-cE-e6g"/>
+                                <exclude reference="1p4-w7-HI1"/>
+                                <exclude reference="8We-9W-ccG"/>
+                                <exclude reference="9io-Ug-7yP"/>
+                                <exclude reference="EJM-Nc-EWh"/>
+                                <exclude reference="ELv-f0-Odp"/>
+                                <exclude reference="FFB-VB-0Xo"/>
+                                <exclude reference="JnO-6p-22w"/>
+                                <exclude reference="KSZ-ne-jkt"/>
+                                <exclude reference="L6M-m5-jfu"/>
+                                <exclude reference="OXa-kd-lcb"/>
+                                <exclude reference="UE0-OB-O9c"/>
+                                <exclude reference="WaK-vG-TT1"/>
+                                <exclude reference="Yha-dk-k72"/>
+                                <exclude reference="aqU-jF-yC8"/>
+                                <exclude reference="cix-P6-1kM"/>
+                                <exclude reference="fAF-VQ-Umd"/>
+                                <exclude reference="fLm-BV-JCH"/>
+                                <exclude reference="gD6-3S-ZTX"/>
+                                <exclude reference="gOE-Gz-agn"/>
+                                <exclude reference="mm4-qG-lrx"/>
+                                <exclude reference="pNP-YG-RNZ"/>
+                                <exclude reference="pud-uy-X3Z"/>
+                                <exclude reference="qRB-Ab-saq"/>
+                                <exclude reference="vOk-AX-7Rl"/>
+                            </mask>
+                        </variation>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hIN-B9-ahe" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="267" y="979"/>
+        </scene>
         <!--Detail View Controller-->
         <scene sceneID="sng-iU-Eyp">
             <objects>

@@ -11,29 +11,60 @@ import Foundation
 typealias SearchComplete = (Bool) -> Void
 
 class Search {
+
+//  var searchResults = [SearchResult]()
+//  var hasSearched = false
+//  var isLoading = false
   
-  var searchResults = [SearchResult]()
-  var hasSearched = false
-  var isLoading = false
+  enum State {
+    case NotSearchedYet
+    case Loading
+    case NoResults
+    case Results([SearchResult])
+  }
+  
+  private(set) var state: State = .NotSearchedYet
+  
   var dataTask: NSURLSessionDataTask?
   
   private var dataTadk: NSURLSessionDataTask? = nil
   
   
+  // This create a new enumeration type named Category with four possible items
+  enum Category: Int {
+    case All = 0
+    case Music = 1
+    case Software = 2
+    case EBook = 3
+    
+    // swift enums cannot have instance variables, only computed properties
+    var entityName: String {
+      switch self {
+        case .All: return ""
+        case .Music: return "musicTrack"
+        case .Software: return "software"
+        case .EBook: return "ebook"
+      }
+    }
+  }
+  
+  
   init() {
   }
   
-  func performSearchForText(text: String, category: Int, completion: SearchComplete) {
+  func performSearchForText(text: String, category: Category, completion: SearchComplete) {
     
     if !text.isEmpty {
       
 
       self.dataTask?.cancel()
+      
+      state = .Loading
     
-      self.isLoading = true
+      //self.isLoading = true
       // Here is the networking code
-      self.hasSearched = true
-      self.searchResults = [SearchResult]()
+      //self.hasSearched = true
+      //self.searchResults = [SearchResult]()
       
       
       // 1 Create the NSURL object with the search text
@@ -46,7 +77,7 @@ class Search {
       self.dataTask = session.dataTaskWithURL(url, completionHandler: {
         data, response, error in
         
-        
+        self.state = .NotSearchedYet
         var success = false
         
         //println("On the main thread? " + (NSThread.currentThread().isMainThread ? "Yes" : "No"))
@@ -61,8 +92,16 @@ class Search {
           if httpResponse.statusCode == 200 {
             //println("Success! \(data)")
             if let dictionary = self.parseJSON(data) {
-              self.searchResults = self.parseDictionary(dictionary)
-              self.searchResults.sort{ $0 < $1 }
+              
+              var searchResults = self.parseDictionary(dictionary)
+              if searchResults.isEmpty {
+                self.state = .NoResults
+              } else {
+                searchResults.sort{ $0 < $1 }
+                self.state = .Results(searchResults)
+              }
+              
+            
               
               
               /*
@@ -71,8 +110,8 @@ class Search {
                 self.tableView.reloadData()
               }
               */
-              println("Success! ")
-              self.isLoading = false
+              //println("Success! ")
+              //self.isLoading = false
               success = true
               //return
             }
@@ -81,10 +120,6 @@ class Search {
           //}
         }
         
-        if !success {
-          self.hasSearched = false
-          self.isLoading = false
-        }
         
         dispatch_async(dispatch_get_main_queue()) {
           completion(success)
@@ -121,15 +156,10 @@ class Search {
   
   
   //MARK: Networking
-  private func urlWithSearchText(searchText: String, category: Int) -> NSURL {
+  private func urlWithSearchText(searchText: String, category: Category) -> NSURL {
     
-    var entityName: String
-    switch category {
-    case 1: entityName = "musicTrack"
-    case 2: entityName = "software"
-    case 3: entityName = "ebook"
-    default: entityName = ""
-    }
+
+    let entityName = category.entityName
     
     // Do the URL encoding
     let escapedSearchText = searchText.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!

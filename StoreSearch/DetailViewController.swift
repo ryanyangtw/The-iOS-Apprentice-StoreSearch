@@ -33,6 +33,7 @@ class DetailViewController: UIViewController {
   
   deinit {
     //println("deinit \(self)")
+    println("DetailViewController  deinit")
     self.downloadTask?.cancel()
   }
 

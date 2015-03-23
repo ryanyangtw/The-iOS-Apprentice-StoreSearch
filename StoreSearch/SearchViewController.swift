@@ -32,6 +32,10 @@ class SearchViewController: UIViewController {
   
   var landscapeViewController: LandscapeViewController?
   
+  deinit {
+    println("SearchViewController deinit")
+  }
+    
   override func viewDidLoad() {
     super.viewDidLoad()
     
@@ -323,11 +327,15 @@ class SearchViewController: UIViewController {
     // 2 Find the scene with ID "LandscapeViewController" in storyboard and instantiate it
     landscapeViewController = storyboard!.instantiateViewControllerWithIdentifier("LandscapeViewController") as? LandscapeViewController
     if let controller = landscapeViewController {
+      
+      controller.searchResults = searchResults
+      
       // 3 This makes the landscape view just as big as the SearchViewController, covering the entire screen
       controller.view.frame = view.bounds
       controller.view.alpha = 0
       
-      // 4
+      // 4 add the landscapr controller's view as a subview. This places it on top of the table view
+      // using addChildViewController() to tell the SearchViewController that the LandscapeViewController is now managing that part of the screen
       view.addSubview(controller.view)
       addChildViewController(controller)
       
@@ -343,6 +351,7 @@ class SearchViewController: UIViewController {
         
         },
         completion: { _ in
+          // Tell the new view controller that it now has a parent view controller
           controller.didMoveToParentViewController(self)
       })
       

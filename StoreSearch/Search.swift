@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 typealias SearchComplete = (Bool) -> Void
 
@@ -58,6 +59,7 @@ class Search {
       
 
       self.dataTask?.cancel()
+      UIApplication.sharedApplication().networkActivityIndicatorVisible = true
       
       state = .Loading
     
@@ -76,7 +78,7 @@ class Search {
       // 3 data task are for sendeing HTTP GET requests to the server
       self.dataTask = session.dataTaskWithURL(url, completionHandler: {
         data, response, error in
-        
+
         self.state = .NotSearchedYet
         var success = false
         
@@ -122,6 +124,7 @@ class Search {
         
         
         dispatch_async(dispatch_get_main_queue()) {
+          UIApplication.sharedApplication().networkActivityIndicatorVisible = false
           completion(success)
         }
         

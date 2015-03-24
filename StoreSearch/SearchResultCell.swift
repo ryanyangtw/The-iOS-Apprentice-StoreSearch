@@ -43,12 +43,12 @@ class SearchResultCell: UITableViewCell {
     
     //println("In configureForSearchResult")
     if searchResult.artistName.isEmpty {
-      self.artistNameLabel.text = "Unknow"
+      self.artistNameLabel.text = NSLocalizedString("Unknown", comment: "Localized artistNameLabel in searchResultCell: Unknown")
     } else {
       
-      self.artistNameLabel.text = String(format: "%@ (%@)",
-        searchResult.artistName, searchResult.kindForDisplay())
-    
+      //self.artistNameLabel.text = String(format: "%@ (%@)",
+        //searchResult.artistName, searchResult.kindForDisplay())
+      self.artistNameLabel.text = String(format: NSLocalizedString("ARTIST_NAME_LABEL_FORMAT", comment: "Format for artist name label"), searchResult.artistName, searchResult.kindForDisplay())
     }
     
     // Tells the UIImageView to load the image from artworkUrl60. And to place it in the cell's image view

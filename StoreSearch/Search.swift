@@ -163,14 +163,30 @@ class Search {
     
 
     let entityName = category.entityName
-    
+    let locale = NSLocale.autoupdatingCurrentLocale()
+    let language = locale.localeIdentifier
+    let countryCode = (locale.objectForKey(NSLocaleCountryCode) as? String) ?? "US"
+
+//    println("entityName: \(entityName)")
+//    println("locale: \(locale)")
+//    println("language: \(language)")
+//    println("countyCode: \(locale.objectForKey(NSLocaleCountryCode))")
     // Do the URL encoding
     let escapedSearchText = searchText.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!
     
-    let urlString = String(format: "http://itunes.apple.com/search?term=%@&limit=200&entity=%@", escapedSearchText, entityName)
+    // language is combined with language_region ex: en_TW. This will make error.
+    // So I take the language away
+    let urlString = String(format: "http://itunes.apple.com/search?term=%@&limit=200&entity=%@&country=%@", escapedSearchText, entityName, countryCode)
+    /*
+    let urlString = String(format: "http://itunes.apple.com/search?term=%@&limit=200&entity=%@&lang=%@&country=%@", escapedSearchText, entityName, language, countryCode)
+    */
+    
     
     // Tuen this string into NSURL object
     let url = NSURL(string: urlString)
+    
+    
+    println("URL: \(url!)")
     return url!
     
   }

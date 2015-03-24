@@ -26,22 +26,62 @@ class SearchResult {
   var genre = ""
   
   
+  private let displayNamesForKind = [
+    "album": NSLocalizedString("Albun", comment: "Localized kind: Album"),
+    "audiobook": NSLocalizedString("Audio Book", comment: "Localized kind: Audio Book"),
+    "book": NSLocalizedString("Book", comment: "Localized kind: Book"),
+    "ebook": NSLocalizedString("E-Book", comment: "Localized kind: E-Book"),
+    "feature-movie": NSLocalizedString("Movie", comment: "Localized kind: Feature Movie"),
+    "music-video": NSLocalizedString("Music Video", comment: "Localized kind: Music Video"),
+    "podcaast": NSLocalizedString("Podcast", comment: "Localized kind: Podcast"),
+    "software": NSLocalizedString("App", comment: "Localized kind: Software"),
+    "song": NSLocalizedString("Song", comment: "Localized kind: Song"),
+    "tv-episode": NSLocalizedString("TV Episode", comment: "Localized kind: TV Episode")
+  ]
   
+ 
   func kindForDisplay() -> String {
-    switch kind {
-    case "album": return "Albun"
-    case "audiobook": return "Audio Book"
-    case "book": return "Book"
-    case "ebook": return "E-Book"
-    case "feature-movie": return "Movie"
-    case "music-video": return "Music Video"
-    case "podcaast": return "Podcast"
-    case "software": return "App"
-    case "song": return "Song"
-    case "tv-episode": return "TV Episode"
-    default: return kind
+    
+    // nil coalescing operator
+    return displayNamesForKind[self.kind] ?? self.kind
+    
+    // the code above is equal to below
+    /*
+    if let name = displayNamesForKind[kind] {
+      return name
+    } else {
+      return kind
     }
+    */
+    
+    
+    /*
+    switch kind {
+    case "album":
+      return NSLocalizedString("Albun", comment: "Localized kind: Album")
+    case "audiobook":
+      return NSLocalizedString("Audio Book", comment: "Localized kind: Audio Book")
+    case "book":
+      return NSLocalizedString("Book", comment: "Localized kind: Book")
+    case "ebook":
+      return NSLocalizedString("E-Book", comment: "Localized kind: E-Book")
+    case "feature-movie":
+      return NSLocalizedString("Movie", comment: "Localized kind: Feature Movie")
+    case "music-video":
+      return NSLocalizedString("Music Video", comment: "Localized kind: Music Video")
+    case "podcaast":
+      return NSLocalizedString("Podcast", comment: "Localized kind: Podcast")
+    case "software":
+      return NSLocalizedString("App", comment: "Localized kind: Software")
+    case "song":
+      return NSLocalizedString("Song", comment: "Localized kind: Song")
+    case "tv-episode":
+      return NSLocalizedString("TV Episode", comment: "Localized kind: TV Episode")
+    default:
+      return kind
+    }
+    */
   }
-  
+
   
 }

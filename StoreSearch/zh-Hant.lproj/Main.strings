@@ -1,0 +1,36 @@
+
+/* Class = "IBUILabel"; text = "Kind Value"; ObjectID = "79i-od-7DO"; */
+"79i-od-7DO.text" = "Kind Value";
+
+/* Class = "IBUILabel"; text = "Type:"; ObjectID = "IrM-cO-rrM"; */
+"IrM-cO-rrM.text" = "類型:";
+
+/* Class = "IBUISearchBar"; placeholder = "App name, artist, song, album, e-book"; ObjectID = "elA-an-YCg"; */
+"elA-an-YCg.placeholder" = "名稱, 表演者, 歌曲, 專輯, 電子書";
+
+/* Class = "IBUILabel"; text = "Artist Name"; ObjectID = "jga-po-da4"; */
+"jga-po-da4.text" = "Artist Name";
+
+/* Class = "IBUILabel"; text = "Genre Value"; ObjectID = "nfo-lj-eD8"; */
+"nfo-lj-eD8.text" = "Genre Value";
+
+/* Class = "IBUISegmentedControl"; qXw-Ox-Shf.segmentTitles[0] = "All"; ObjectID = "qXw-Ox-Shf"; */
+"qXw-Ox-Shf.segmentTitles[0]" = "全部";
+
+/* Class = "IBUISegmentedControl"; qXw-Ox-Shf.segmentTitles[1] = "Music"; ObjectID = "qXw-Ox-Shf"; */
+"qXw-Ox-Shf.segmentTitles[1]" = "音樂";
+
+/* Class = "IBUISegmentedControl"; qXw-Ox-Shf.segmentTitles[2] = "Software"; ObjectID = "qXw-Ox-Shf"; */
+"qXw-Ox-Shf.segmentTitles[2]" = "軟體";
+
+/* Class = "IBUISegmentedControl"; qXw-Ox-Shf.segmentTitles[3] = "E-books"; ObjectID = "qXw-Ox-Shf"; */
+"qXw-Ox-Shf.segmentTitles[3]" = "電子書";
+
+/* Class = "IBUILabel"; text = "Name"; ObjectID = "v5M-cf-KBS"; */
+"v5M-cf-KBS.text" = "Name";
+
+/* Class = "IBUIButton"; normalTitle = "$9.99"; ObjectID = "vlB-Nu-5z5"; */
+"vlB-Nu-5z5.normalTitle" = "$9.99";
+
+/* Class = "IBUILabel"; text = "Genre:"; ObjectID = "zNk-3E-cEU"; */
+"zNk-3E-cEU.text" = "Genre:";

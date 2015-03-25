@@ -13,10 +13,13 @@
 		94761D221AB6828E009A7D32 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 94761D211AB6828E009A7D32 /* Images.xcassets */; };
 		94761D311AB6828E009A7D32 /* StoreSearchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94761D301AB6828E009A7D32 /* StoreSearchTests.swift */; };
 		94761D3D1AB6DA30009A7D32 /* SearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94761D3C1AB6DA30009A7D32 /* SearchResult.swift */; };
+		9477AAAD1AC2D4FD003F4C32 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9477AAAC1AC2D4FD003F4C32 /* MenuViewController.swift */; };
 		94A6015B1AB7297000B0072C /* SearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94A6015A1AB7297000B0072C /* SearchResultCell.swift */; };
 		94C1B0741AC07183006F3122 /* NothingFoundCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94C1B0761AC07183006F3122 /* NothingFoundCell.xib */; };
 		94C1B07B1AC1084D006F3122 /* LoadingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94C1B07D1AC1084D006F3122 /* LoadingCell.xib */; };
 		94C1B0861AC10C44006F3122 /* SearchResultCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94C1B0881AC10C44006F3122 /* SearchResultCell.xib */; };
+		94C1B08B1AC1145A006F3122 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 94C1B0891AC1145A006F3122 /* Localizable.strings */; };
+		94C1B0901AC138A9006F3122 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 94C1B0921AC138A9006F3122 /* InfoPlist.strings */; };
 		94CA61D21ABC3C5B001EFA17 /* UIImageView+DownloadImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94CA61D11ABC3C5B001EFA17 /* UIImageView+DownloadImage.swift */; };
 		94CA61D41ABC5712001EFA17 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94CA61D31ABC5712001EFA17 /* DetailViewController.swift */; };
 		94CA61D61ABC6D2E001EFA17 /* DimmingPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94CA61D51ABC6D2E001EFA17 /* DimmingPresentationController.swift */; };
@@ -49,6 +52,7 @@
 		94761D2F1AB6828E009A7D32 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		94761D301AB6828E009A7D32 /* StoreSearchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreSearchTests.swift; sourceTree = "<group>"; };
 		94761D3C1AB6DA30009A7D32 /* SearchResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResult.swift; sourceTree = "<group>"; };
+		9477AAAC1AC2D4FD003F4C32 /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		94A6015A1AB7297000B0072C /* SearchResultCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultCell.swift; sourceTree = "<group>"; };
 		94C1B0751AC07183006F3122 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/NothingFoundCell.xib; sourceTree = "<group>"; };
 		94C1B0791AC07765006F3122 /* nl */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = nl; path = nl.lproj/NothingFoundCell.xib; sourceTree = "<group>"; };
@@ -59,6 +63,12 @@
 		94C1B0831AC10A6A006F3122 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Main.strings; sourceTree = "<group>"; };
 		94C1B0851AC10A6B006F3122 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Main.strings"; sourceTree = "<group>"; };
 		94C1B0871AC10C44006F3122 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SearchResultCell.xib; sourceTree = "<group>"; };
+		94C1B08A1AC1145A006F3122 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		94C1B08C1AC117CD006F3122 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Localizable.strings; sourceTree = "<group>"; };
+		94C1B08D1AC117CE006F3122 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		94C1B0911AC138A9006F3122 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		94C1B0931AC138AE006F3122 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		94C1B0941AC138AE006F3122 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		94CA61D11ABC3C5B001EFA17 /* UIImageView+DownloadImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+DownloadImage.swift"; sourceTree = "<group>"; };
 		94CA61D31ABC5712001EFA17 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		94CA61D51ABC6D2E001EFA17 /* DimmingPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DimmingPresentationController.swift; sourceTree = "<group>"; };
@@ -128,6 +138,7 @@
 				94F94D2D1ABD9CA4005FF6FD /* LandscapeViewController.swift */,
 				94F94D2F1ABE6855005FF6FD /* FadeOutAnimationController.swift */,
 				94F94D311ABFFF7F005FF6FD /* Search.swift */,
+				9477AAAC1AC2D4FD003F4C32 /* MenuViewController.swift */,
 			);
 			path = StoreSearch;
 			sourceTree = "<group>";
@@ -135,7 +146,9 @@
 		94761D181AB6828E009A7D32 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				94C1B0891AC1145A006F3122 /* Localizable.strings */,
 				94761D191AB6828E009A7D32 /* Info.plist */,
+				94C1B0921AC138A9006F3122 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -240,6 +253,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				94C1B07B1AC1084D006F3122 /* LoadingCell.xib in Resources */,
+				94C1B0901AC138A9006F3122 /* InfoPlist.strings in Resources */,
+				94C1B08B1AC1145A006F3122 /* Localizable.strings in Resources */,
 				94761D201AB6828E009A7D32 /* Main.storyboard in Resources */,
 				94C1B0861AC10C44006F3122 /* SearchResultCell.xib in Resources */,
 				94C1B0741AC07183006F3122 /* NothingFoundCell.xib in Resources */,
@@ -264,6 +279,7 @@
 				94F94D321ABFFF7F005FF6FD /* Search.swift in Sources */,
 				94761D1D1AB6828E009A7D32 /* SearchViewController.swift in Sources */,
 				94CA61D61ABC6D2E001EFA17 /* DimmingPresentationController.swift in Sources */,
+				9477AAAD1AC2D4FD003F4C32 /* MenuViewController.swift in Sources */,
 				94F94D301ABE6855005FF6FD /* FadeOutAnimationController.swift in Sources */,
 				94761D3D1AB6DA30009A7D32 /* SearchResult.swift in Sources */,
 				94A6015B1AB7297000B0072C /* SearchResultCell.swift in Sources */,
@@ -332,6 +348,26 @@
 				94C1B0871AC10C44006F3122 /* Base */,
 			);
 			name = SearchResultCell.xib;
+			sourceTree = "<group>";
+		};
+		94C1B0891AC1145A006F3122 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				94C1B08A1AC1145A006F3122 /* en */,
+				94C1B08C1AC117CD006F3122 /* nl */,
+				94C1B08D1AC117CE006F3122 /* zh-Hant */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		94C1B0921AC138A9006F3122 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				94C1B0911AC138A9006F3122 /* Base */,
+				94C1B0931AC138AE006F3122 /* nl */,
+				94C1B0941AC138AE006F3122 /* zh-Hant */,
+			);
+			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -422,6 +458,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -433,6 +470,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

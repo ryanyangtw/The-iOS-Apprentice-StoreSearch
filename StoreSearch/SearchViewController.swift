@@ -34,6 +34,8 @@ class SearchViewController: UIViewController {
   
   var landscapeViewController: LandscapeViewController?
   
+  weak var splitViewDetail: DetailViewController?
+  
   deinit {
     println("SearchViewController deinit")
   }
@@ -61,7 +63,15 @@ class SearchViewController: UIViewController {
     
     self.tableView.rowHeight = 80
     
-    self.searchBar.becomeFirstResponder()
+    if UIDevice.currentDevice().userInterfaceIdiom != .Pad {
+      self.searchBar.becomeFirstResponder()
+    }
+    
+    
+    
+    //The title property is used by the UINavigationController to put the title text in the navigation bar.
+    // 因為navigationItem 會自動顯示前一頁的title
+    title = NSLocalizedString("Search", comment: "Split-view master button")
     
     
     // Do any additional setup after loading the view, typically from a nib.
@@ -72,12 +82,24 @@ class SearchViewController: UIViewController {
     
     super.willTransitionToTraitCollection(newCollection, withTransitionCoordinator: coordinator)
     
-    switch newCollection.verticalSizeClass {
-    case .Compact:
-      showLandscapeViewWithCoordinator(coordinator)
-    case .Regular, .Unspecified:
-      hideLandscapeViewWithCoordinator(coordinator)
+    
+    let rect = UIScreen.mainScreen().bounds
+
+    // Detect the Iphone 6 plus
+    if (rect.width == 736 && rect.height == 414) || (rect.width == 414 && rect.height == 736) {
+      if presentedViewController != nil {
+        dismissViewControllerAnimated(true, completion: nil)
+      }
+    } else if UIDevice.currentDevice().userInterfaceIdiom != .Pad {
+      switch newCollection.verticalSizeClass {
+      case .Compact:
+        showLandscapeViewWithCoordinator(coordinator)
+      case .Regular, .Unspecified:
+        hideLandscapeViewWithCoordinator(coordinator)
+      }
     }
+    
+
   }
 
   override func didReceiveMemoryWarning() {
@@ -112,6 +134,8 @@ class SearchViewController: UIViewController {
         let indexPath = sender as NSIndexPath
         let searchResult = list[indexPath.row]
         detailViewController.searchResult = searchResult
+        detailViewController.isPopUp = true
+        
       default:
         break
       }
@@ -123,7 +147,7 @@ class SearchViewController: UIViewController {
   func showLandscapeViewWithCoordinator(coordinator: UIViewControllerTransitionCoordinator) {
   
     // 1 Test for the the assumptions
-    precondition(landscapeViewController == nil)
+    //precondition(landscapeViewController == nil)
     
     // 2 Find the scene with ID "LandscapeViewController" in storyboard and instantiate it
     landscapeViewController = storyboard!.instantiateViewControllerWithIdentifier("LandscapeViewController") as? LandscapeViewController
@@ -185,6 +209,16 @@ class SearchViewController: UIViewController {
 
     }
 
+  }
+  
+  func hideMasterPane() {
+    UIView.animateWithDuration(0.25, animations: {
+      self.splitViewController!.preferredDisplayMode = .PrimaryHidden
+      }, completion: { _ in
+        //Every view controller has a built-in splitViewController property that is non-nil if the view controller is currently inside a UISplitViewController.
+        self.splitViewController!.preferredDisplayMode = .Automatic
+    })
+  
   }
 
 
@@ -490,11 +524,29 @@ extension SearchViewController: UITableViewDelegate {
   
   func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
     
-    // deselect the row with animation
-    tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    searchBar.resignFirstResponder()
     
-    // Manually Trigger Segue
-    performSegueWithIdentifier("ShowDetail", sender: indexPath)
+    if view.window!.rootViewController!.traitCollection.horizontalSizeClass == .Compact {
+      // deselect the row with animation
+      tableView.deselectRowAtIndexPath(indexPath, animated: true)
+      
+      // Manually Trigger Segue
+      performSegueWithIdentifier("ShowDetail", sender: indexPath)
+    } else {
+      switch search.state {
+      case .Results(let list):
+        splitViewDetail?.searchResult = list[indexPath.row]
+      default:
+        break
+      }
+      
+      // .AllVisible mode only applies in landscape. if the split-view is not in landscape, hide the master pane when a row gets tapped
+      if splitViewController!.displayMode != .AllVisible {
+        hideMasterPane()
+      }
+    }
+    
+
   }
   
   

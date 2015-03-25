@@ -12,10 +12,34 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
   var window: UIWindow?
+  
+  var splitViewController: UISplitViewController {
+    return window!.rootViewController as UISplitViewController
+  }
 
+  var searchViewController: SearchViewController {
+    return splitViewController.viewControllers.first as SearchViewController
+  }
+  
+  var detailNavigationController: UINavigationController {
+    return splitViewController.viewControllers.last as UINavigationController
+  }
+  
+  var detailViewController: DetailViewController {
+    return detailNavigationController.topViewController as DetailViewController
+  }
 
   func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
     // Override point for customization after application launch.
+    
+    // This looks up the detail screen and puts a button into its navigation item for switching between the split-view display modes
+    detailViewController.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem()
+    // navigationItem created to represent the viwe controoller when it is pushed onto a navigation contoller.
+    
+    
+    searchViewController.splitViewDetail = detailViewController
+    
+    splitViewController.delegate = self
     
     customizeAppearance()
     return true
@@ -52,5 +76,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   }
 
 
+}
+
+
+extension AppDelegate: UISplitViewControllerDelegate {
+  
+  // This method dismisses any presented new controller - that would be the popover - if the display mode changes to .PrimaryOverlay, in other words if the master pane become visible
+  func splitViewController(svc: UISplitViewController, willChangeToDisplayMode displayMode: UISplitViewControllerDisplayMode) {
+  
+    println(__FUNCTION__)
+    //println("displayMode: \(displayMode)")
+    if displayMode == .PrimaryOverlay {
+      svc.dismissViewControllerAnimated(true, completion: nil)
+    }
+  }
 }
 

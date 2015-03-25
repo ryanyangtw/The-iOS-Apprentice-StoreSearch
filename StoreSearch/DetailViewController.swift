@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MessageUI
 
 class DetailViewController: UIViewController {
   
@@ -19,9 +20,18 @@ class DetailViewController: UIViewController {
   @IBOutlet weak var genreLabel: UILabel!
   @IBOutlet weak var priceButton: UIButton!
   
-  var searchResult: SearchResult!
+  var searchResult: SearchResult! {
+    // property observer
+    didSet {
+      if isViewLoaded() {
+        updateUI()
+      }
+    }
+  }
   
   var downloadTask: NSURLSessionDownloadTask?
+  
+  var isPopUp = false
   
   enum AnimationStyle {
     case Slide
@@ -36,27 +46,48 @@ class DetailViewController: UIViewController {
     println("DetailViewController  deinit")
     self.downloadTask?.cancel()
   }
-
+  
   override func viewDidLoad() {
+    
     super.viewDidLoad()
     self.view.tintColor = UIColor(red: 20/255, green: 160/255, blue: 160/255, alpha: 1)
     
     // Ask the pop-up view for its layer and then set the corner radius of that layer to 10 points
     popupView.layer.cornerRadius = 10
     
-    let gestureRecognizer = UITapGestureRecognizer(target: self, action: Selector("close"))
-    gestureRecognizer.cancelsTouchesInView = false
-    gestureRecognizer.delegate = self
-    view.addGestureRecognizer(gestureRecognizer)
+//    let gestureRecognizer = UITapGestureRecognizer(target: self, action: Selector("close"))
+//    gestureRecognizer.cancelsTouchesInView = false
+//    gestureRecognizer.delegate = self
+//    view.addGestureRecognizer(gestureRecognizer)
     
     if self.searchResult != nil {
       updateUI()
     }
     
     
-    view.backgroundColor = UIColor.clearColor()
+    //view.backgroundColor = UIColor.clearColor()
     
     //self.priceButton.setTitle("TEST", forState: .Normal)
+    
+    
+    if isPopUp {
+      let gestureRecognizer = UITapGestureRecognizer(target: self, action: Selector("close"))
+      gestureRecognizer.cancelsTouchesInView = false
+      gestureRecognizer.delegate = self
+      view.addGestureRecognizer(gestureRecognizer)
+      
+      view.backgroundColor = UIColor.clearColor()
+
+    } else {
+      view.backgroundColor = UIColor(patternImage: UIImage(named: "LandscapeBackground")!)
+      popupView.hidden = true
+      
+      if let displayName = NSBundle.mainBundle().localizedInfoDictionary?["CFBundleDisplayName"] as? NSString {
+        title = displayName
+      }
+    }
+    
+    
 
     // Do any additional setup after loading the view.
   }
@@ -111,7 +142,16 @@ class DetailViewController: UIViewController {
       self.downloadTask = artworkImageView.loadImageWithURL(url)
     }
     
+    popupView.hidden = false
     
+  }
+  
+//MARK: Prepare for segue
+  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    if segue.identifier == "ShowMenu" {
+      let controller = segue.destinationViewController as MenuViewController
+      controller.delegate = self
+    }
   }
  
 // MARK: IBAction
@@ -146,13 +186,12 @@ extension DetailViewController: UIViewControllerTransitioningDelegate {
   }
   
   func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-    
+
     switch dismissAnimationStyle {
     case .Slide:
       return SlideOutAnimationController()
     case .Fade:
       return FadeOutAnimationController()
-      
     }
     
   }
@@ -169,4 +208,42 @@ extension DetailViewController: UIGestureRecognizerDelegate {
   
 }
 
+
+//MARK: MenuViewControllerDelegate
+extension DetailViewController: MenuViewControllerDelegate {
+  func menuViewControllerSendSupportEmail(MenuViewController) {
+    
+    // hide the popover
+    dismissViewControllerAnimated(true) {
+      if MFMailComposeViewController.canSendMail() {
+        let controller = MFMailComposeViewController()
+        controller.setSubject(NSLocalizedString("Support Request", comment: "Email subject"))
+        controller.setToRecipients(["hiphubryan@gmail.com"])
+          self.presentViewController(controller, animated: true, completion: nil)
+        
+        controller.mailComposeDelegate = self
+        
+        // Default is page sheet
+        controller.modalPresentationStyle = .FormSheet
+      
+      }
+    }
+    
+  }
+}
+
+//MARK: MFMailComposeViewControllerDelegate
+extension DetailViewController: MFMailComposeViewControllerDelegate {
+  
+  func mailComposeController(controller: MFMailComposeViewController!, didFinishWithResult result: MFMailComposeResult, error: NSError!) {
+    
+    if let error = error {
+      println("Send email error: \(error)")
+    }
+    dismissViewControllerAnimated(true, completion: nil)
+    
+  }
+
+
+}
 

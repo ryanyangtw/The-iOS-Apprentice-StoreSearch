@@ -71,6 +71,9 @@ class SearchResultCell: UITableViewCell {
     self.artistNameLabel.text = nil
     self.artworkImageView.image = nil
     
+    nameLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
+    artistNameLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleCaption1)
+    
   }
 
 }

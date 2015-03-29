@@ -36,8 +36,11 @@ class SearchViewController: UIViewController {
   
   weak var splitViewDetail: DetailViewController?
   
+  var observer: AnyObject!
+  
   deinit {
     println("SearchViewController deinit")
+    NSNotificationCenter.defaultCenter().removeObserver(observer)
   }
     
   override func viewDidLoad() {
@@ -74,6 +77,9 @@ class SearchViewController: UIViewController {
     title = NSLocalizedString("Search", comment: "Split-view master button")
     
     
+    listenForContentSizeCategoryNotifications()
+    
+    
     // Do any additional setup after loading the view, typically from a nib.
   }
   
@@ -105,6 +111,16 @@ class SearchViewController: UIViewController {
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
     // Dispose of any resources that can be recreated.
+  }
+  
+  
+  func listenForContentSizeCategoryNotifications() {
+    self.observer = NSNotificationCenter.defaultCenter().addObserverForName(UIContentSizeCategoryDidChangeNotification, object: nil, queue: NSOperationQueue.mainQueue(), usingBlock: { [weak self] _ in
+        if let strongSelf = self {
+          strongSelf.tableView.reloadData()
+        }
+      
+    })
   }
   
   

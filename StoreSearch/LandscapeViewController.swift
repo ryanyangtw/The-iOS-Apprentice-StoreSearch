@@ -202,8 +202,16 @@ class LandscapeViewController: UIViewController {
           if let data = NSData(contentsOfURL: url) {
             if let image = UIImage(data: data) {
               dispatch_async(dispatch_get_main_queue()) {
+                // This code is User Interface-ralated and, therefore needs to be executed on the main thread of the application.
+                
+                // Makd sure the button still exists prior to attempting to load an image onto it
                 if let button = button {
-                  button.setImage(image, forState: .Normal)
+                  // Load the image onto the button
+                  //button.setImage(image, forState: .Normal)
+                  
+                  // Load the imgae onto the button while ensuring the image fit within the button.
+                  // image 會自動置中
+                  button.setImage(image.resizedImageToFillWithBounds(CGSize(width: 60, height: 60)), forState: .Normal)
                 }
               }
             }

@@ -108,6 +108,8 @@ class DetailViewController: UIViewController {
   }
   
   func updateUI() {
+    
+    
     self.nameLabel.text = self.searchResult.name
     
     if self.searchResult.artistName.isEmpty {
@@ -142,7 +144,18 @@ class DetailViewController: UIViewController {
       self.downloadTask = artworkImageView.loadImageWithURL(url)
     }
     
-    popupView.hidden = false
+    // Exercise p.273
+    // Smooth entry of the detail view when its added to the screen.
+    //popupView.hidden = false
+    if (!isPopUp) && (popupView.hidden == true) {
+      popupView.alpha = 0.0
+      UIView.animateWithDuration(0.5, animations: { () -> Void in
+        
+        self.popupView.hidden = false;
+        self.popupView.alpha = 1.0;
+        
+        }, completion: nil)
+    }
     
   }
   

@@ -267,6 +267,13 @@ extension SearchViewController: UISearchBarDelegate {
         
         self.tableView.reloadData()
         
+        // Exercise p.224
+        // Fake a network error to verify that network errors are hanled correctly in landscape mode.
+        // Set the Network Link Conditioner Profile to "100% Loss", then run the app. 
+        // Put the app to sleep 5 seconds to allow time to turn the device to landscape mode followint he initiaion of a search.
+        //println("Before sleep")
+        //sleep(5)
+        
         if let controller = self.landscapeViewController {
           controller.searchResultsReceived()
         }

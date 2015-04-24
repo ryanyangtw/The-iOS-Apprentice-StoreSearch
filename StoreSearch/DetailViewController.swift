@@ -82,7 +82,7 @@ class DetailViewController: UIViewController {
       view.backgroundColor = UIColor(patternImage: UIImage(named: "LandscapeBackground")!)
       popupView.hidden = true
       
-      if let displayName = NSBundle.mainBundle().localizedInfoDictionary?["CFBundleDisplayName"] as? NSString {
+      if let displayName = NSBundle.mainBundle().localizedInfoDictionary?["CFBundleDisplayName"] as? String {
         title = displayName
       }
     }
@@ -162,7 +162,7 @@ class DetailViewController: UIViewController {
 //MARK: Prepare for segue
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     if segue.identifier == "ShowMenu" {
-      let controller = segue.destinationViewController as MenuViewController
+      let controller = segue.destinationViewController as! MenuViewController
       controller.delegate = self
     }
   }

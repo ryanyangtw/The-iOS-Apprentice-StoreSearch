@@ -241,7 +241,7 @@ class Search {
     // 1 make sure the dictionary has a key named results that contains an array
     if let array: AnyObject = dictionary["results"] {
       // 2
-      for resultDict in array as [AnyObject] {
+      for resultDict in array as! [AnyObject] {
         
         // 3 make sure these objects really do represnet a dictionary.
         if let resultDict = resultDict as? [String: AnyObject] {
@@ -293,18 +293,18 @@ class Search {
   private func parseTrack(dictionary: [String: AnyObject]) -> SearchResult {
     let searchResult = SearchResult()
     
-    searchResult.name = dictionary["trackName"] as NSString
-    searchResult.artistName = dictionary["artistName"] as NSString
-    searchResult.artworkUrl60 = dictionary["artworkUrl60"] as NSString
-    searchResult.artworkUrl100 = dictionary["artworkUrl100"] as NSString
-    searchResult.storeUrl = dictionary["trackViewUrl"] as NSString
-    searchResult.kind = dictionary["kind"] as NSString
-    searchResult.currency = dictionary["currency"] as NSString
+    searchResult.name = dictionary["trackName"] as! String
+    searchResult.artistName = dictionary["artistName"] as! String
+    searchResult.artworkUrl60 = dictionary["artworkUrl60"] as! String
+    searchResult.artworkUrl100 = dictionary["artworkUrl100"] as! String
+    searchResult.storeUrl = dictionary["trackViewUrl"] as! String
+    searchResult.kind = dictionary["kind"] as! String
+    searchResult.currency = dictionary["currency"] as! String
     
-    if let price = dictionary["trackPrice"] as? NSNumber {
-      searchResult.price = Double(price)
+    if let price = dictionary["trackPrice"] as? Double {
+      searchResult.price = price
     }
-    if let genre = dictionary["primaryGenreName"] as? NSString {
+    if let genre = dictionary["primaryGenreName"] as? String {
       searchResult.genre = genre
     }
     
@@ -314,18 +314,18 @@ class Search {
   
   private func parseAudioBook(dictionary: [String: AnyObject]) -> SearchResult {
     let searchResult = SearchResult()
-    searchResult.name = dictionary["collectionName"] as NSString
-    searchResult.artistName = dictionary["artistName"] as NSString
-    searchResult.artworkUrl60 = dictionary["artworkUrl60"] as NSString
-    searchResult.artworkUrl100 = dictionary["artworkUrl100"] as NSString
-    searchResult.storeUrl = dictionary["collectionViewUrl"] as NSString
+    searchResult.name = dictionary["collectionName"] as! String
+    searchResult.artistName = dictionary["artistName"] as! String
+    searchResult.artworkUrl60 = dictionary["artworkUrl60"] as! String
+    searchResult.artworkUrl100 = dictionary["artworkUrl100"] as! String
+    searchResult.storeUrl = dictionary["collectionViewUrl"] as! String
     searchResult.kind = "audiobook"
-    searchResult.currency = dictionary["currency"] as NSString
+    searchResult.currency = dictionary["currency"] as! String
     
-    if let price = dictionary["collectionPrice"] as? NSNumber {
-      searchResult.price = Double(price)
+    if let price = dictionary["collectionPrice"] as? Double {
+      searchResult.price = price
     }
-    if let genre = dictionary["primaryGenreName"] as? NSString {
+    if let genre = dictionary["primaryGenreName"] as? String {
       searchResult.genre = genre
     }
     
@@ -335,18 +335,18 @@ class Search {
   // ??
   private func parseSoftware(dictionary: [String: AnyObject]) -> SearchResult {
     let searchResult = SearchResult()
-    searchResult.name = dictionary["trackName"] as NSString
-    searchResult.artistName = dictionary["artistName"] as NSString
-    searchResult.artworkUrl60 = dictionary["artworkUrl60"] as NSString
-    searchResult.artworkUrl100 = dictionary["artworkUrl100"] as NSString
-    searchResult.storeUrl = dictionary["trackViewUrl"] as NSString
-    searchResult.kind = dictionary["kind"] as NSString
-    searchResult.currency = dictionary["currency"] as NSString
+    searchResult.name = dictionary["trackName"] as! String
+    searchResult.artistName = dictionary["artistName"] as! String
+    searchResult.artworkUrl60 = dictionary["artworkUrl60"] as! String
+    searchResult.artworkUrl100 = dictionary["artworkUrl100"] as! String
+    searchResult.storeUrl = dictionary["trackViewUrl"] as! String
+    searchResult.kind = dictionary["kind"] as! String
+    searchResult.currency = dictionary["currency"] as! String
     
-    if let price = dictionary["price"] as? NSNumber {
-      searchResult.price = Double(price)
+    if let price = dictionary["price"] as? Double {
+      searchResult.price = price
     }
-    if let genre = dictionary["primaryGenreName"] as? NSString {
+    if let genre = dictionary["primaryGenreName"] as? String {
       searchResult.genre = genre
     }
     
@@ -357,20 +357,20 @@ class Search {
   private func parseEBook(dictionary: [String: AnyObject]) -> SearchResult {
     
     let searchResult = SearchResult()
-    searchResult.name = dictionary["trackName"] as NSString
-    searchResult.artistName = dictionary["artistName"] as NSString
-    searchResult.artworkUrl60 = dictionary["artworkUrl60"] as NSString
-    searchResult.artworkUrl100 = dictionary["artworkUrl100"] as NSString
-    searchResult.storeUrl = dictionary["trackViewUrl"] as NSString
-    searchResult.kind = dictionary["kind"] as NSString
-    searchResult.currency = dictionary["currency"] as NSString
+    searchResult.name = dictionary["trackName"] as! String
+    searchResult.artistName = dictionary["artistName"] as! String
+    searchResult.artworkUrl60 = dictionary["artworkUrl60"] as! String
+    searchResult.artworkUrl100 = dictionary["artworkUrl100"] as! String
+    searchResult.storeUrl = dictionary["trackViewUrl"] as! String
+    searchResult.kind = dictionary["kind"] as! String
+    searchResult.currency = dictionary["currency"] as! String
     
-    if let price = dictionary["price"] as? NSNumber {
-      searchResult.price = Double(price)
+    if let price = dictionary["price"] as? Double {
+      searchResult.price = price
     }
     
     if let genres: AnyObject = dictionary["genres"] {
-      searchResult.genre = ", ".join(genres as [String])
+      searchResult.genre = ", ".join(genres as! [String])
     }
     
     return searchResult

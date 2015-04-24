@@ -140,7 +140,7 @@ class LandscapeViewController: UIViewController {
     for (index, searchResult) in enumerate(searchResults) {
       
       // 2 Create buttons and give each button a title with the array index for dubugging
-      let button = UIButton.buttonWithType(.Custom) as UIButton
+      let button = UIButton.buttonWithType(.Custom) as! UIButton
       button.setBackgroundImage(UIImage(named: "LandscapeButton"), forState: .Normal)
       //button.backgroundColor = UIColor.whiteColor()
       //button.setTitle("\(index)", forState: .Normal)
@@ -290,7 +290,7 @@ class LandscapeViewController: UIViewController {
     if segue.identifier == "ShowDetail" {
       switch search.state {
       case .Results(let list):
-        let detailViewController = segue.destinationViewController as DetailViewController
+        let detailViewController = segue.destinationViewController as! DetailViewController
         let searchResult = list[sender!.tag - 2000]
         detailViewController.searchResult = searchResult
         detailViewController.isPopUp = true

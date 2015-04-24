@@ -30,6 +30,7 @@ class SlideOutAnimationController: NSObject, UIViewControllerAnimatedTransitioni
         //println("containerView.bounds.size.height : \(containerView.bounds.size.height)")
         //fromView.center.y = containerView.bounds.size.height - fromView.center.y
         fromView.center.y -= containerView.bounds.size.height
+        
         fromView.transform = CGAffineTransformMakeScale(0.5, 0.5)
       
         }, completion: { finished in
